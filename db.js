@@ -7,20 +7,6 @@ async function selectClientes() {
     return results[0];
 }
 
-const clientes = [
-    {
-        id: 1,
-        nome: "Lara",
-        email: "lara@teste.com",
-        celular: "99951252"
-    },
-    {
-        id: 2,
-        nome: "Sookie",
-        email: "sookie@teste.com",
-        celular: "99653246"
-    }
-];
 
 // function selectClientes() {
 //     return clientes;
@@ -30,9 +16,10 @@ function selectCliente(id){
     return clientes.find(c => c.id === id)
 }
 
-function insertCliente(cliente) {
-    //Validação se cliente tem ID igual ao ID dentro de Cliente[] ID++
-    clientes.push(cliente);
+async function insertCliente(cliente) {
+    const values = [cliente.user, cliente.password];
+    //Validação se cliente tem o USER igual ao USER no Banco de Dados
+    await client.query("INSERT INTO users(user,password) VALUES (?,?)", values)
 }
 
 // Alterar informação de algum cliente do DB

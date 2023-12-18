@@ -26,9 +26,9 @@ app.patch("/clientes/:id", (request, response) => {
 })
 
 // Adicionar Novos Clientes
-app.post("/clientes", (request, response) => {
+app.post("/clientes", async (request, response) => {
     const cliente = request.body;
-    db.insertCliente(cliente);
+    await db.insertCliente(cliente);
     response.sendStatus(201);
 })
 
