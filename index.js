@@ -18,10 +18,10 @@ app.delete("/clientes/:id", (request, response) => {
 })
 
 // Para alterar Informações de clientes
-app.patch("/clientes/:id", (request, response) => {
+app.patch("/clientes/:id", async(request, response) => {
     const id = parseInt(request.params.id);
     const cliente = request.body;
-    db.updateCliente(id, cliente);
+    await db.updateCliente(id, cliente);
     response.sendStatus(200);
 })
 
@@ -38,12 +38,14 @@ app.get("/clientes", async (request, response) => {
     response.json(results)
 })
 
-app.get ("/clientes/:id", (request, response) => {
+app.get ("/clientes/:id", async (request, response) => {
     const id = parseInt(request.params.id);
-    response.json(db.selectCliente(id));
+    const results = await db.selectCliente(id)
+    response.json(results);
 })
 
 app.get("/", (request, response, ) => {
+    response.send() //para carregar pagina html
     response.json({
         message: "Its Alive!"
     })

@@ -7,13 +7,10 @@ async function selectClientes() {
     return results[0];
 }
 
-
-// function selectClientes() {
-//     return clientes;
-// }
-
-function selectCliente(id){
-    return clientes.find(c => c.id === id)
+async function selectCliente(id){
+    const value = [id]
+    const results = await client.query("select user, password from users WHERE id=?", value)
+    return results[0];
 }
 
 async function insertCliente(cliente) {
@@ -23,12 +20,10 @@ async function insertCliente(cliente) {
 }
 
 // Alterar informação de algum cliente do DB
-function updateCliente(id, clienteData) {
-    const cliente = clientes.find(c => c.id === id);
-    if(!cliente) return;
-    cliente.nome = clienteData.nome;
-    cliente.email = clienteData.email;
-    cliente.celular = clienteData.celular;
+async function updateCliente(id, cliente) {
+    const values = [cliente.user, cliente.password, id]
+    await client.query("UPDATE users SET user=?, password=? WHERE id=?", values)
+
 }
 
 function deleteCliente(id) {
