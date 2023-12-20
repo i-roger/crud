@@ -32,6 +32,11 @@ function deleteCliente(id) {
 
 }
 
+async function deleteCliente(id) {
+    const value = [id]
+    await client.query("DELETE from users WHERE id=?", value)
+}
+
 module.exports = {
     selectClientes,
     selectCliente,

@@ -10,10 +10,11 @@ const app = express();
 Transformam-se em .json ao chegar no destino*/
 app.use(express.json());
 
+
 //Excluir Clientes pelo ID
-app.delete("/clientes/:id", (request, response) => {
+app.delete("/clientes/:id", async (request, response) => {
     const id = parseInt(request.params.id);
-    db.deleteCliente(id);
+    await db.deleteCliente(id);
     response.sendStatus(204);
 })
 
